@@ -13,22 +13,23 @@ interface Message {
   text: string;
 }
 
+const suggestedQuestions = [
+  'What AI projects has Rohan built?',
+  'What did he work on at SOiTA?',
+  'Explain his RAG implementation.',
+  'What experience does he have with PyTorch?',
+  'What technologies has he used in internships?',
+];
+
 export const AssistantDrawer: React.FC<AssistantDrawerProps> = ({ isOpen, onClose }) => {
   const [messages, setMessages] = useState<Message[]>([
     {
       sender: 'assistant',
-      text: "Hello! I am Rohan's portfolio assistant, grounded exclusively on his verified engineering projects, code repos, and internships. What would you like to know?",
+      text: "Hello! I'm Rohan's portfolio assistant, grounded strictly on his verified projects, internships, and technical skills. Ask me anything about his work.",
     },
   ]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
-
-  const suggestedQuestions = [
-    'What has Rohan built with PyTorch and LSTMs?',
-    'Explain the VaultMind-RAG pipeline built without LangChain',
-    'Tell me about his work at LuminAI and SOITA',
-    'What official certifications does Rohan hold?',
-  ];
 
   const handleSend = async (queryText?: string) => {
     const textToSend = queryText || input;
@@ -51,7 +52,10 @@ export const AssistantDrawer: React.FC<AssistantDrawerProps> = ({ isOpen, onClos
         ...prev,
         {
           sender: 'assistant',
-          text: data.answer || 'I could not synthesize an answer based on the portfolio data.',
+          text:
+            data.answer ||
+            data.error ||
+            'I could not synthesize an answer based on the portfolio data.',
         },
       ]);
     } catch {
@@ -70,40 +74,48 @@ export const AssistantDrawer: React.FC<AssistantDrawerProps> = ({ isOpen, onClos
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex justify-end bg-black/75 backdrop-blur-sm animate-in fade-in duration-200">
-      <div className="w-full max-w-lg h-full glass-panel bg-[#0d0f17] border-l border-white/10 flex flex-col shadow-2xl">
+    <div
+      className="fixed inset-0 z-50 flex justify-end bg-black/75 backdrop-blur-sm"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Ask My Portfolio AI Assistant"
+    >
+      <div className="w-full max-w-lg h-full glass-panel border-l border-[var(--border-subtle)] flex flex-col shadow-2xl">
         {/* Drawer Header */}
-        <div className="p-4 sm:p-5 border-b border-white/10 flex items-center justify-between bg-white/[0.02]">
+        <div className="p-4 sm:p-5 border-b border-[var(--border-subtle)] flex items-center justify-between surface-subtle">
           <div className="flex items-center gap-2.5">
             <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-cyan-500 to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-indigo-500/20">
               <Bot className="w-4 h-4" />
             </div>
             <div>
-              <h2 className="text-sm sm:text-base font-bold text-white flex items-center gap-1.5">
+              <h2 className="font-heading text-sm sm:text-base font-bold text-[var(--text-primary)] flex items-center gap-1.5">
                 Ask My Portfolio
                 <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
               </h2>
-              <p className="text-[11px] text-cyan-300 font-mono">
-                Grounded on Verified Projects & Experience
+              <p className="text-[11px] text-cyan-400 font-mono">
+                Grounded on Verified Projects &amp; Internships
               </p>
             </div>
           </div>
 
           <button
+            type="button"
             onClick={onClose}
-            className="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+            aria-label="Close Assistant"
+            className="p-2 rounded-xl text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-white/10 transition-colors cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Suggested Prompts */}
-        <div className="p-3 bg-white/[0.01] border-b border-white/5 overflow-x-auto flex gap-2">
-          {suggestedQuestions.map((q, idx) => (
+        <div className="p-3 border-b border-[var(--border-subtle)] overflow-x-auto flex gap-2">
+          {suggestedQuestions.map((q) => (
             <button
-              key={idx}
+              key={q}
+              type="button"
               onClick={() => handleSend(q)}
-              className="text-[11px] shrink-0 px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10 text-slate-300 hover:text-cyan-300 border border-white/5 transition-colors cursor-pointer flex items-center gap-1"
+              className="text-[11px] shrink-0 px-2.5 py-1 rounded-lg surface-subtle hover:border-cyan-400/40 text-[var(--text-secondary)] hover:text-cyan-400 transition-colors cursor-pointer flex items-center gap-1"
             >
               <Sparkles className="w-3 h-3 text-cyan-400" />
               <span>{q}</span>
@@ -119,7 +131,7 @@ export const AssistantDrawer: React.FC<AssistantDrawerProps> = ({ isOpen, onClos
               className={`flex gap-3 ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
             >
               {msg.sender === 'assistant' && (
-                <div className="w-6 h-6 rounded-lg bg-indigo-500/20 text-indigo-300 flex items-center justify-center shrink-0 mt-0.5 border border-indigo-500/30">
+                <div className="w-6 h-6 rounded-lg bg-indigo-500/20 text-indigo-400 flex items-center justify-center shrink-0 mt-0.5 border border-indigo-500/30">
                   <Bot className="w-3.5 h-3.5" />
                 </div>
               )}
@@ -128,14 +140,14 @@ export const AssistantDrawer: React.FC<AssistantDrawerProps> = ({ isOpen, onClos
                 className={`max-w-[85%] p-3.5 rounded-2xl leading-relaxed whitespace-pre-wrap ${
                   msg.sender === 'user'
                     ? 'bg-gradient-to-r from-cyan-600 to-indigo-600 text-white rounded-tr-sm'
-                    : 'bg-white/[0.04] text-slate-200 border border-white/5 rounded-tl-sm'
+                    : 'surface-subtle text-[var(--text-primary)] rounded-tl-sm'
                 }`}
               >
                 {msg.text}
               </div>
 
               {msg.sender === 'user' && (
-                <div className="w-6 h-6 rounded-lg bg-cyan-500/20 text-cyan-300 flex items-center justify-center shrink-0 mt-0.5 border border-cyan-500/30">
+                <div className="w-6 h-6 rounded-lg bg-cyan-500/20 text-cyan-400 flex items-center justify-center shrink-0 mt-0.5 border border-cyan-500/30">
                   <User className="w-3.5 h-3.5" />
                 </div>
               )}
@@ -143,17 +155,17 @@ export const AssistantDrawer: React.FC<AssistantDrawerProps> = ({ isOpen, onClos
           ))}
 
           {loading && (
-            <div className="flex gap-3 items-center text-xs text-slate-400">
-              <div className="w-6 h-6 rounded-lg bg-indigo-500/20 text-indigo-300 flex items-center justify-center shrink-0">
+            <div className="flex gap-3 items-center text-xs text-[var(--text-secondary)]">
+              <div className="w-6 h-6 rounded-lg bg-indigo-500/20 text-indigo-400 flex items-center justify-center shrink-0">
                 <RefreshCw className="w-3.5 h-3.5 animate-spin text-cyan-400" />
               </div>
-              <span className="font-mono">Synthesizing grounded answer from portfolio...</span>
+              <span className="font-mono">Synthesizing grounded answer...</span>
             </div>
           )}
         </div>
 
         {/* Input Bar */}
-        <div className="p-3 sm:p-4 border-t border-white/10 bg-white/[0.02]">
+        <div className="p-3 sm:p-4 border-t border-[var(--border-subtle)] surface-subtle">
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -165,19 +177,21 @@ export const AssistantDrawer: React.FC<AssistantDrawerProps> = ({ isOpen, onClos
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="Ask about Rohan's projects, LSTMs, or LuminAI..."
-              className="flex-1 bg-white/[0.03] border border-white/10 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400"
+              maxLength={500}
+              placeholder="Ask about SignBridge AI, VaultMind-RAG, LuminAI, or SOiTA..."
+              className="flex-1 bg-[var(--bg-base)] border border-[var(--border-subtle)] rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none focus:border-cyan-400"
             />
             <button
               type="submit"
               disabled={loading || !input.trim()}
+              aria-label="Send message"
               className="p-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-indigo-600 text-white disabled:opacity-40 transition-opacity cursor-pointer shadow-lg shadow-indigo-500/20"
             >
               <Send className="w-4 h-4" />
             </button>
           </form>
-          <div className="text-[10px] text-slate-500 text-center mt-2 font-mono">
-            Strictly grounded on Rohan&apos;s verified work • Rate-limited
+          <div className="text-[10px] text-[var(--text-muted)] text-center mt-2 font-mono">
+            Strictly grounded on Rohan&apos;s verified portfolio • Rate-limited
           </div>
         </div>
       </div>

@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { personalInfo } from '@/data/personal';
-import { Mail, Heart, ArrowUp } from 'lucide-react';
+import { Mail, ArrowUp } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from './Icons';
 
 export const Footer: React.FC = () => {
@@ -12,44 +12,49 @@ export const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="border-t border-white/10 bg-[#08090d]/80 py-12 px-4">
+    <footer className="border-t border-[var(--border-subtle)] bg-[var(--bg-surface)]/70 py-12 px-4 sm:px-6">
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-        <div>
-          <div className="flex items-center gap-2 mb-1">
-            <span className="font-bold text-white text-base">{personalInfo.name}</span>
-            <span className="text-xs text-cyan-400 font-mono">• {personalInfo.degree}</span>
+        <div className="text-center md:text-left">
+          <div className="flex flex-wrap items-center justify-center md:justify-start gap-2 mb-1">
+            <span className="font-heading font-bold text-[var(--text-primary)] text-base">
+              {personalInfo.name}
+            </span>
+            <span className="text-xs text-cyan-400 font-mono">
+              • {personalInfo.education.shortDegree}
+            </span>
           </div>
-          <p className="text-xs text-slate-400">
-            {personalInfo.college} • Graduating {personalInfo.graduationYear}
+          <p className="text-xs text-[var(--text-secondary)]">
+            {personalInfo.education.college} • {personalInfo.education.period}
           </p>
         </div>
 
         {/* Links */}
-        <div className="flex items-center gap-5 text-xs text-slate-400">
-          <Link href="#projects" className="hover:text-cyan-400 transition-colors">
+        <div className="flex flex-wrap items-center justify-center gap-5 text-xs text-[var(--text-secondary)]">
+          <Link href="/#about" className="hover:text-cyan-400 transition-colors">
+            About
+          </Link>
+          <Link href="/#projects" className="hover:text-cyan-400 transition-colors">
             Projects
           </Link>
-          <Link href="#experience" className="hover:text-cyan-400 transition-colors">
+          <Link href="/#experience" className="hover:text-cyan-400 transition-colors">
             Experience
           </Link>
-          <Link href="#skills" className="hover:text-cyan-400 transition-colors">
+          <Link href="/#skills" className="hover:text-cyan-400 transition-colors">
             Skills
           </Link>
-          <Link href="#certifications" className="hover:text-cyan-400 transition-colors">
-            Certifications
-          </Link>
-          <Link href="#contact" className="hover:text-cyan-400 transition-colors">
+          <Link href="/#contact" className="hover:text-cyan-400 transition-colors">
             Contact
           </Link>
         </div>
 
         {/* Social Icons & Back to Top */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2.5">
           <a
             href={personalInfo.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="p-2 rounded-xl glass-panel glass-panel-hover text-slate-400 hover:text-white transition-colors"
+            className="p-2 rounded-xl glass-panel glass-panel-hover text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
+            aria-label="GitHub"
             title="GitHub"
           >
             <GithubIcon className="w-4 h-4" />
@@ -58,21 +63,25 @@ export const Footer: React.FC = () => {
             href={personalInfo.linkedin}
             target="_blank"
             rel="noopener noreferrer"
-            className="p-2 rounded-xl glass-panel glass-panel-hover text-slate-400 hover:text-white transition-colors"
+            className="p-2 rounded-xl glass-panel glass-panel-hover text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
+            aria-label="LinkedIn"
             title="LinkedIn"
           >
             <LinkedinIcon className="w-4 h-4" />
           </a>
           <a
             href={`mailto:${personalInfo.email}`}
-            className="p-2 rounded-xl glass-panel glass-panel-hover text-slate-400 hover:text-white transition-colors"
+            className="p-2 rounded-xl glass-panel glass-panel-hover text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
+            aria-label="Email"
             title="Email"
           >
             <Mail className="w-4 h-4" />
           </a>
           <button
+            type="button"
             onClick={scrollToTop}
-            className="p-2 rounded-xl glass-panel glass-panel-hover text-cyan-400 hover:text-cyan-300 transition-colors cursor-pointer"
+            className="p-2 rounded-xl glass-panel glass-panel-hover text-cyan-400 cursor-pointer"
+            aria-label="Scroll to top"
             title="Scroll to top"
           >
             <ArrowUp className="w-4 h-4" />
@@ -80,9 +89,9 @@ export const Footer: React.FC = () => {
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto mt-8 pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between text-[11px] font-mono text-slate-500 gap-2">
-        <span>© 2026 Rohan Pawar. Built with Next.js, TypeScript & Gemini.</span>
-        <span>Philosophy: Proof Over Claims</span>
+      <div className="max-w-6xl mx-auto mt-8 pt-6 border-t border-[var(--border-subtle)] flex flex-col sm:flex-row items-center justify-between text-[11px] font-mono text-[var(--text-muted)] gap-2">
+        <span>© 2026 Rohan Pawar. Bengaluru, India.</span>
+        <span>BUILD → EXPERIMENT → ENGINEER → DEPLOY</span>
       </div>
     </footer>
   );

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <defs>
+    <linearGradient id="rpGrad" x1="0" y1="0" x2="64" y2="64" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#06B6D4" />
+      <stop offset="100%" stop-color="#6366F1" />
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="16" fill="#08090D" />
+  <rect x="2" y="2" width="60" height="60" rx="14" stroke="url(#rpGrad)" stroke-opacity="0.6" stroke-width="2" />
+  <text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" fill="#F8FAFC" font-family="system-ui, sans-serif" font-weight="700" font-size="24" letter-spacing="1">RP</text>
+</svg>
