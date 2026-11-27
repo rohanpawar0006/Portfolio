@@ -1,0 +1,66 @@
+import { ExperienceItem } from '@/types';
+
+export const experienceData: ExperienceItem[] = [
+  {
+    id: 'luminai',
+    company: 'LuminAI',
+    role: 'AI & Analytics Intern',
+    period: 'Ongoing',
+    duration: 'Present',
+    type: 'Internship',
+    location: 'Bengaluru, India',
+    highlights: [
+      'Engineered intelligent dashboard forecasting and analytics workflows helping businesses translate raw metrics into predictive decisions.',
+      'Automated multidimensional data consolidation, exploratory data analysis (EDA), and time-series forecasting models.',
+      'Developed generative LLM insight pipelines to automatically draft executive narrative briefings on key KPI trends.',
+    ],
+    skillsApplied: ['Python', 'Time-Series Forecasting', 'LLM Integration', 'Pandas', 'EDA', 'Business Intelligence'],
+    isClientProject: true,
+  },
+  {
+    id: 'soita',
+    company: 'SOITA',
+    role: 'AI Agent Development Intern',
+    period: 'Completed',
+    duration: '1 Month',
+    type: 'Internship',
+    location: 'Bengaluru, India',
+    highlights: [
+      'Developed autonomous AI agents, tool-calling pipelines, and multi-step task execution systems.',
+      'Implemented structured output validation and error-recovery routines for deterministic agent behavior.',
+      'Designed agent workflows bridging foundational LLMs with custom external APIs and retrieval modules.',
+    ],
+    skillsApplied: ['Agentic AI', 'Tool Calling', 'Python', 'LLM Orchestration', 'Prompt Engineering'],
+  },
+  {
+    id: 'inamigos',
+    company: 'InAmigos Foundation',
+    role: 'Web Development Intern',
+    period: 'Completed',
+    duration: '2 Weeks',
+    type: 'Internship',
+    location: 'Remote',
+    highlights: [
+      'Built responsive web pages, interface modules, and modern UI components using HTML5, CSS3, and JavaScript.',
+      'Optimized page load speed, cross-device layout consistency, and interactive frontend elements.',
+      'Collaborated in a fast-paced development sprint to enhance user accessibility and design compliance.',
+    ],
+    skillsApplied: ['HTML5', 'CSS3', 'JavaScript', 'Responsive Design', 'Frontend Development'],
+  },
+  {
+    id: 'svce-tech-guy',
+    company: 'Sri Venkateshwara College of Engineering (SVCE)',
+    role: 'Student Tech Lead / "Student Tech Guy"',
+    period: 'Oct 2023 – Present',
+    duration: 'Active',
+    type: 'College Leadership',
+    location: 'Bengaluru, India',
+    highlights: [
+      'Served as the go-to technical coordinator and tech specialist across the Computer Science / AIML department.',
+      'Conducted practical workshops on emerging AI tools, Git version control, and modern programming practices.',
+      'Organized and coordinated technical hackathons, coding challenges, and interactive tech demonstrations for college events.',
+      'Mentored junior students and peers in project debugging, software architectures, and AI model implementations.',
+    ],
+    skillsApplied: ['Technical Leadership', 'Peer Mentorship', 'Workshop Facilitation', 'Hackathon Organizing', 'Public Speaking'],
+  },
+];
